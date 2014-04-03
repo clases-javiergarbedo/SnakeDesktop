@@ -7,6 +7,8 @@ package snake;
 public class Main extends javax.swing.JFrame {
 
     private Snake snake;
+    private SnakeLoop snakeLoop;
+    private int pauseSpeed = 500;
     
     /**
      * Creates new form Main
@@ -135,6 +137,9 @@ public class Main extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         snake = new Snake(10, 10);
         jTextArea1.setText(snake.toString());
+        //Inciar el movimiento automático
+        snakeLoop = new SnakeLoop(snake, pauseSpeed, jTextArea1);
+        snakeLoop.start();        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
