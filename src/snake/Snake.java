@@ -50,6 +50,7 @@ public class Snake {
                 tablero[f][c] = VACIO;
             }
         }
+        
         //Colocar la cabeza en posición aleatoria
         int cabezaFila = random.nextInt(tamFila-2*MARGEN)+MARGEN;
         int cabezaCol = random.nextInt(tamCol-2*MARGEN)+MARGEN;
@@ -63,6 +64,18 @@ public class Snake {
         }
         //Colocar fruta
         generarFruta();
+    }
+
+    public char[][] getTablero() {
+        return tablero;
+    }
+    
+    public int getTamFila() {
+        return tamFila;
+    }
+
+    public int getTamCol() {
+        return tamCol;
     }
 
     public void setSentidoMov(byte sentidoMov) {

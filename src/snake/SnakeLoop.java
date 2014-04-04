@@ -9,12 +9,12 @@ public class SnakeLoop implements Runnable {
     private Snake snake;
     private boolean running = false;
     private long pauseSpeed;
-    private JTextArea jTextArea;
+    private SnakePanel snakePanel;
 
-    public SnakeLoop(Snake snake, long pauseSpeed, JTextArea jTextArea) {
+    public SnakeLoop(Snake snake, long pauseSpeed, SnakePanel snakePanel) {
         this.snake = snake;
         this.pauseSpeed = pauseSpeed;
-        this.jTextArea = jTextArea;
+        this.snakePanel = snakePanel;
     }
 
     /**
@@ -52,7 +52,7 @@ public class SnakeLoop implements Runnable {
             //Mover la serpiente
             snake.mover();
             //Pintar el juego
-            jTextArea.setText(snake.toString());
+            snakePanel.repaint();
             //Pausar el juego durante el tiempo establecido
             try {
                 Thread.sleep(pauseSpeed);
