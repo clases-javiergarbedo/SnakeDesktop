@@ -1,18 +1,24 @@
 package snake;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
 
 public class SnakePanel extends javax.swing.JPanel {
 
     private Snake snake;
-    private final int TAM_CASILLA = 20;
+    public final int TAM_CASILLA = 10;
     
     /**
      * Creates new form SnakePanel
      */
     public SnakePanel() {
         initComponents();
+        Dimension dimension = new Dimension(40*TAM_CASILLA, 40*TAM_CASILLA);
+        this.setSize(dimension);
+        this.setPreferredSize(dimension);
     }
 
     public void setSnake(Snake snake) {
@@ -23,23 +29,34 @@ public class SnakePanel extends javax.swing.JPanel {
     public void paint(Graphics g) {
         super.paint(g); 
         if(snake!=null) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, snake.getTamCol()*TAM_CASILLA, snake.getTamFila()*TAM_CASILLA);
             for(int f=0; f<snake.getTamFila(); f++) {
                 for(int c=0; c<snake.getTamCol(); c++) {
+                    Point pointCasilla = new Point(c*TAM_CASILLA, f*TAM_CASILLA);
                     char contenido = snake.getTablero()[f][c];
                     switch(contenido) {
                         case Snake.VACIO:
                             break;
                         case Snake.CABEZA:
-                            g.setColor(new Color(85,107,47));
-                            g.fillOval(c*TAM_CASILLA, f*TAM_CASILLA, TAM_CASILLA, TAM_CASILLA);
+                            g.setColor(new Color(107,142,35));
+                            g.fillOval(pointCasilla.x, pointCasilla.y, TAM_CASILLA, TAM_CASILLA);
                             break;
                         case Snake.CUERPO:
-                            g.setColor(new Color(107,142,35));
-                            g.fillOval(c*TAM_CASILLA+2, f*TAM_CASILLA+2, TAM_CASILLA-4, TAM_CASILLA-4);
+                            g.setColor(new Color(85,107,47));
+                            g.fillOval(pointCasilla.x+1, pointCasilla.y+1, TAM_CASILLA-2, TAM_CASILLA-2);
                             break;
                         case Snake.MURO:
+                            g.setColor(new Color(178, 34, 34));
+                            g.fillRect(pointCasilla.x, pointCasilla.y, TAM_CASILLA, TAM_CASILLA);
+                            g.setColor(Color.BLACK);
+                            g.drawRect(pointCasilla.x, pointCasilla.y, TAM_CASILLA, TAM_CASILLA);
                             break;
                         case Snake.FRUTA:
+                            g.setColor(new Color(255, 165, 0));
+                            int[] frutaPuntosX = {pointCasilla.x+TAM_CASILLA/2, pointCasilla.x+TAM_CASILLA, pointCasilla.x+TAM_CASILLA/2, pointCasilla.x};
+                            int[] frutaPuntosY = {pointCasilla.y, pointCasilla.y+TAM_CASILLA/2, pointCasilla.y+TAM_CASILLA, pointCasilla.y+TAM_CASILLA/2};
+                            g.fillPolygon(frutaPuntosX, frutaPuntosY, 4);
                             break;
                     }
                 }
@@ -58,17 +75,40 @@ public class SnakePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 160, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        switch(evt.getKeyCode()) {
+            case KeyEvent.VK_RIGHT:
+                snake.setSentidoMov(Snake.DERECHA);
+                break;
+            case KeyEvent.VK_LEFT:
+                snake.setSentidoMov(Snake.IZQUIERDA);
+                break;
+            case KeyEvent.VK_UP:
+                snake.setSentidoMov(Snake.ARRIBA);
+                break;
+            case KeyEvent.VK_DOWN:
+                snake.setSentidoMov(Snake.ABAJO);
+                break;
+        }
+    }//GEN-LAST:event_formKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
