@@ -1,8 +1,5 @@
 package snake;
 
-import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-
 /**
  *
  * @author Javier

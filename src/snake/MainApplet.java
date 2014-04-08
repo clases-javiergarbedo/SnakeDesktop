@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package snake;
 
 /**
@@ -45,6 +39,8 @@ public class MainApplet extends javax.swing.JApplet {
             java.awt.EventQueue.invokeAndWait(new Runnable() {
                 public void run() {
                     initComponents();
+                    //Asociar el panel de control al panel del tablero
+                    snakeControlPanel1.setSnakePanel(snakePanel1);                    
                 }
             });
         } catch (Exception ex) {
